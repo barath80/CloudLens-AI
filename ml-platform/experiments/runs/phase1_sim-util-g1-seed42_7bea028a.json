@@ -1,0 +1,101 @@
+{
+  "banner": "SIMULATED DATA - not real customer or AWS data. Results validate pipeline behaviour only and are NOT evidence of real-world performance.",
+  "evidence_grade": "simulated_pipeline_check",
+  "created_at": "2026-11-17T08:17:59+00:00",
+  "git_commit": "d044ea4",
+  "dataset": {
+    "data_source": "simulated",
+    "banner": "SIMULATED DATA - not real customer or AWS data. Results validate pipeline behaviour only and are NOT evidence of real-world performance.",
+    "dataset_id": "sim-util-g1-seed42",
+    "generator_version": "1",
+    "seed": 42,
+    "days": 30,
+    "short_history_days": 5,
+    "per_archetype": 20,
+    "step_minutes": 60,
+    "metric": "cpu_utilization_percent",
+    "archetypes": {
+      "idle": "underutilized",
+      "steady_low": "underutilized",
+      "busy_diurnal": "not_underutilized",
+      "spiky_batch": "not_underutilized",
+      "ramping": "not_underutilized",
+      "short_history": "insufficient_evidence",
+      "gappy": "insufficient_evidence"
+    },
+    "sha256": "7bea028a9b3c8d80511a7d42d0b7772e9676e35ffce9d3a72cb3b65110123cfc"
+  },
+  "detection": {
+    "rule_v1_percentile": {
+      "tp": 40,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    "baseline_mean_only": {
+      "tp": 40,
+      "fp": 60,
+      "fn": 0,
+      "precision": 0.4,
+      "recall": 1.0,
+      "f1": 0.5714285714285715
+    },
+    "abstention": {
+      "expected_insufficient": 40,
+      "abstained_correctly": 40,
+      "abstained_when_evidence_sufficient": 0
+    },
+    "average_precision_rule_v1": 1.0,
+    "n_resources": 140,
+    "config": {
+      "min_days": 14.0,
+      "min_coverage": 0.9,
+      "max_gap_days": 2.0,
+      "p95_limit": 30.0,
+      "p99_limit": 60.0
+    },
+    "model_version": "underutilization-rule-v1"
+  },
+  "forecasting": {
+    "naive_last": {
+      "mae": 4.898487027228586,
+      "rmse": 11.753100319603055,
+      "mape_actual_ge_1pct": 22.369029448185955,
+      "interval_80_empirical_coverage": 0.7641948985232567,
+      "prediction_availability": 1.0,
+      "evaluations": 1600
+    },
+    "seasonal_naive_daily": {
+      "mae": 2.2762370408936268,
+      "rmse": 3.3775179680018,
+      "mape_actual_ge_1pct": 16.561694734797133,
+      "interval_80_empirical_coverage": 0.7890352628077179,
+      "prediction_availability": 0.9891021085050936,
+      "evaluations": 1600
+    },
+    "seasonal_mean_daily_7": {
+      "mae": 2.7749644550568964,
+      "rmse": 4.374568047026929,
+      "mape_actual_ge_1pct": 14.450378996195845,
+      "interval_80_empirical_coverage": 0.790965805891179,
+      "prediction_availability": 1.0,
+      "evaluations": 1600
+    },
+    "seasonal_mean_weekly_2": {
+      "mae": 5.412710303194533,
+      "rmse": 9.788953366825407,
+      "mape_actual_ge_1pct": 20.41833104687164,
+      "interval_80_empirical_coverage": 0.7955805746933289,
+      "prediction_availability": 1.0,
+      "evaluations": 1504
+    },
+    "protocol": {
+      "horizon_points": 24,
+      "initial_days": 14,
+      "step": "rolling origin, stride = horizon"
+    }
+  },
+  "caveat": "Labels come from the generator's own assumptions, so detection agreement is partly circular. Forecast errors reflect simulated seasonality. Neither is real-world performance."
+}
