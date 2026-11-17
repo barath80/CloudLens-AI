@@ -1,0 +1,7 @@
+# Generated, reproducible from the seed and generator version recorded in the manifest.
+datasets/simulated/*.parquet
+datasets/simulated/*.json
+!datasets/simulated/.gitkeep
+
+# Run records are kept in git on purpose (small JSON, reviewable evidence). Local scratch is not.
+experiments/scratch/

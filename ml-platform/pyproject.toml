@@ -1,0 +1,33 @@
+[project]
+name = "cloudlens-ml"
+version = "0.1.0"
+description = "CloudLens AI intelligence layer: detection and forecasting signals. Independent of the core backend."
+requires-python = ">=3.12"
+# Minimal on purpose. Every addition needs an ADR (see docs/adr/ADR-ML-001-dependencies.md).
+dependencies = [
+  "pydantic~=2.14",
+  "polars~=2.1",
+  "numpy~=2.5",
+  "tzdata",  # Windows ships no IANA tz database; polars needs one for tz-aware timestamps
+]
+
+[project.optional-dependencies]
+dev = ["pytest~=9.2", "ruff~=0.17"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["cloudlens_ml*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[tool.ruff]
+line-length = 110
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
