@@ -1,0 +1,19 @@
+# Development override: `docker compose -f docker-compose.yml -f docker-compose.dev.yml up --build`
+# Adds source bind mounts and hot reload for backend (uvicorn --reload) and frontend (Vite dev server).
+services:
+  backend:
+    command: sh -c "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
+    volumes:
+      - ./backend/app:/srv/app/app
+      - ./backend/migrations:/srv/app/migrations
+
+  frontend:
+    build:
+      context: ./frontend
+      target: dev
+    command: npm run dev -- --host 0.0.0.0 --port 8080
+    environment:
+      VITE_API_BASE_URL: ${VITE_API_BASE_URL:-http://localhost:8000/api/v1}
+    volumes:
+      - ./frontend:/srv/app
+      - /srv/app/node_modules
